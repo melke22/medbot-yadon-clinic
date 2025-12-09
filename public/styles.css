@@ -144,10 +144,28 @@ body {
 
 /* Clinic Hero Section */
 .clinic-hero {
-    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    position: relative;
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.95) 0%, rgba(52, 73, 94, 0.95) 100%), 
+                url('assets/images/1.jpg') center/cover no-repeat;
     color: white;
     padding: 3rem 2rem;
     margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(52, 73, 94, 0.85) 100%);
+    z-index: 1;
+}
+
+.clinic-hero .hero-content {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content {
@@ -169,7 +187,14 @@ body {
 .clinic-location {
     font-size: 1.1rem;
     color: #bdc3c7;
+    margin-bottom: 0.5rem;
+}
+
+.clinic-owner {
+    font-size: 1rem;
+    color: #3498db;
     margin-bottom: 1rem;
+    font-weight: 500;
 }
 
 .clinic-description {
@@ -305,6 +330,19 @@ body {
     font-size: 0.9rem;
 }
 
+.clinic-founder {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #34495e;
+    color: #3498db !important;
+    font-size: 1rem;
+}
+
+.clinic-founder strong {
+    color: #3498db;
+    font-size: 1.1rem;
+}
+
 .footer-bottom {
     max-width: 1200px;
     margin: 2rem auto 0;
@@ -312,6 +350,90 @@ body {
     border-top: 1px solid #34495e;
     text-align: center;
     color: #95a5a6;
+}
+
+/* Clinic Gallery Section */
+.clinic-gallery {
+    padding: 3rem 2rem;
+    background: #f8f9fa;
+}
+
+.gallery-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.gallery-header h3 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.gallery-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    aspect-ratio: 4/3;
+}
+
+.gallery-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(44, 62, 80, 0.95), transparent);
+    padding: 2rem 1.5rem 1.5rem;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+}
+
+.gallery-overlay p {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+    text-align: center;
 }
 
 /* Responsive Design for Hero Section */
@@ -347,6 +469,15 @@ body {
     .footer-content {
         grid-template-columns: 1fr;
         text-align: center;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .clinic-gallery {
+        padding: 2rem 1rem;
     }
 }
 

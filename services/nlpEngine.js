@@ -7,17 +7,17 @@ class NLPEngine {
       greeting: {
         patterns: ['hello', 'hi', 'hey', 'good morning', 'good afternoon'],
         responses: [
-          'Hello! I\'m Yadon MedBot, your AI healthcare assistant for Yadon Clinic in Addis Ababa. How can I help you today?',
-          'Hi there! Welcome to Yadon Clinic. I\'m here to help with your medical questions and appointments.',
-          'Welcome to Yadon MedBot! I can assist you with our comprehensive healthcare services. What can I help you with?'
+          'Hello! I\'m Yadon MedBot, your AI healthcare assistant for Dr. Nafyad Getu\'s Yadon Clinic in Addis Ababa. How can I help you today?',
+          'Hi there! Welcome to Yadon Clinic, founded by Dr. Nafyad Getu. I\'m here to help with your medical questions and appointments.',
+          'Welcome to Yadon MedBot! I can assist you with our comprehensive healthcare services at Dr. Nafyad Getu\'s clinic. What can I help you with?'
         ]
       },
       clinic_info: {
-        patterns: ['yadon clinic', 'clinic info', 'about clinic', 'location', 'services', 'what services'],
+        patterns: ['yadon clinic', 'clinic info', 'about clinic', 'location', 'services', 'what services', 'owner', 'founder', 'doctor'],
         responses: [
-          'Yadon Clinic is a premier healthcare destination in Addis Ababa, Ethiopia. We offer comprehensive medical services including chronic illness care, STI management, men\'s health, maternal care, and minor procedures.',
-          'We\'re located in the heart of Addis Ababa and provide specialized care for erectile dysfunction, premature ejaculation, ANC follow-up, circumcision, and lipoma excision.',
-          'As a sister company of Yadon Healthcare PLC, we\'ve been serving the community since 2024 with personalized care and innovative medical solutions.'
+          'Yadon Clinic, founded by Dr. Nafyad Getu, is a premier healthcare destination in Addis Ababa, Ethiopia. We offer comprehensive medical services including chronic illness care, STI management, men\'s health, maternal care, and minor procedures.',
+          'We\'re located in the heart of Addis Ababa and provide specialized care for erectile dysfunction, premature ejaculation, ANC follow-up, circumcision, and lipoma excision. Our clinic was established by Dr. Nafyad Getu.',
+          'As a sister company of Yadon Healthcare PLC, Dr. Nafyad Getu\'s clinic has been serving the community since 2024 with personalized care and innovative medical solutions.'
         ]
       },
       appointment: {

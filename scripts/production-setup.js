@@ -84,6 +84,7 @@ EMAIL_PORT=587
 
 # Clinic Information
 CLINIC_NAME=Yadon Clinic
+CLINIC_FOUNDER=Dr. Nafyad Getu
 CLINIC_ADDRESS=Addis Ababa, Ethiopia
 CLINIC_PHONE=${clinicPhone}
 CLINIC_EMAIL=${clinicEmail}
