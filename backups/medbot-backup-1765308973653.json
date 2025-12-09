@@ -1,0 +1,206 @@
+{
+  "patients": [
+    {
+      "emergencyContact": {
+        "name": "Jane Doe",
+        "phone": "+1-555-0102",
+        "relationship": "Spouse"
+      },
+      "_id": "693875a7f78e33b96aced6d4",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "+1-555-0101",
+      "dateOfBirth": "1985-06-15T00:00:00.000Z",
+      "gender": "male",
+      "medicalHistory": [
+        {
+          "condition": "Hypertension",
+          "diagnosedDate": "2020-03-15T00:00:00.000Z",
+          "status": "active",
+          "_id": "693875a7f78e33b96aced6d5"
+        }
+      ],
+      "allergies": [
+        "Penicillin",
+        "Shellfish"
+      ],
+      "medications": [
+        {
+          "name": "Lisinopril",
+          "dosage": "10mg",
+          "frequency": "Once daily",
+          "startDate": "2020-03-15T00:00:00.000Z",
+          "_id": "693875a7f78e33b96aced6d6"
+        }
+      ],
+      "createdAt": "2025-12-09T19:16:55.887Z",
+      "__v": 0
+    },
+    {
+      "emergencyContact": {
+        "name": "Robert Johnson",
+        "phone": "+1-555-0202",
+        "relationship": "Father"
+      },
+      "_id": "693875a7f78e33b96aced6d7",
+      "name": "Sarah Johnson",
+      "email": "sarah.johnson@example.com",
+      "phone": "+1-555-0201",
+      "dateOfBirth": "1992-09-22T00:00:00.000Z",
+      "gender": "female",
+      "medicalHistory": [
+        {
+          "condition": "Asthma",
+          "diagnosedDate": "2010-05-10T00:00:00.000Z",
+          "status": "active",
+          "_id": "693875a7f78e33b96aced6d8"
+        }
+      ],
+      "allergies": [
+        "Dust mites",
+        "Pollen"
+      ],
+      "medications": [
+        {
+          "name": "Albuterol Inhaler",
+          "dosage": "90mcg",
+          "frequency": "As needed",
+          "startDate": "2010-05-10T00:00:00.000Z",
+          "_id": "693875a7f78e33b96aced6d9"
+        }
+      ],
+      "createdAt": "2025-12-09T19:16:55.888Z",
+      "__v": 0
+    },
+    {
+      "emergencyContact": {
+        "name": "Lisa Chen",
+        "phone": "+1-555-0302",
+        "relationship": "Wife"
+      },
+      "_id": "693875a7f78e33b96aced6da",
+      "name": "Michael Chen",
+      "email": "michael.chen@example.com",
+      "phone": "+1-555-0301",
+      "dateOfBirth": "1978-12-03T00:00:00.000Z",
+      "gender": "male",
+      "medicalHistory": [
+        {
+          "condition": "Type 2 Diabetes",
+          "diagnosedDate": "2018-08-20T00:00:00.000Z",
+          "status": "active",
+          "_id": "693875a7f78e33b96aced6db"
+        }
+      ],
+      "allergies": [
+        "Sulfa drugs"
+      ],
+      "medications": [
+        {
+          "name": "Metformin",
+          "dosage": "500mg",
+          "frequency": "Twice daily",
+          "startDate": "2018-08-20T00:00:00.000Z",
+          "_id": "693875a7f78e33b96aced6dc"
+        }
+      ],
+      "createdAt": "2025-12-09T19:16:55.889Z",
+      "__v": 0
+    },
+    {
+      "emergencyContact": {
+        "name": "Emergency Contact",
+        "phone": "555-5678",
+        "relationship": "friend"
+      },
+      "_id": "693875d10b41632c9122e769",
+      "name": "Test User",
+      "email": "test@example.com",
+      "phone": "555-1234",
+      "dateOfBirth": "1990-01-01T00:00:00.000Z",
+      "gender": "male",
+      "medicalHistory": [],
+      "allergies": [],
+      "medications": [],
+      "createdAt": "2025-12-09T19:17:37.554Z",
+      "__v": 0
+    }
+  ],
+  "appointments": [
+    {
+      "_id": "693875a7f78e33b96aced6e0",
+      "patientId": "693875a7f78e33b96aced6d4",
+      "doctorName": "Dr. Smith",
+      "department": "Cardiology",
+      "appointmentDate": "2024-12-15T00:00:00.000Z",
+      "timeSlot": "10:00",
+      "reason": "Routine blood pressure check",
+      "status": "scheduled",
+      "createdAt": "2025-12-09T19:16:55.912Z",
+      "__v": 0
+    },
+    {
+      "_id": "693875a7f78e33b96aced6e1",
+      "patientId": "693875a7f78e33b96aced6d7",
+      "doctorName": "Dr. Johnson",
+      "department": "Pulmonology",
+      "appointmentDate": "2024-12-16T00:00:00.000Z",
+      "timeSlot": "14:30",
+      "reason": "Asthma follow-up",
+      "status": "confirmed",
+      "createdAt": "2025-12-09T19:16:55.912Z",
+      "__v": 0
+    },
+    {
+      "_id": "693875a7f78e33b96aced6e2",
+      "patientId": "693875a7f78e33b96aced6da",
+      "doctorName": "Dr. Williams",
+      "department": "Endocrinology",
+      "appointmentDate": "2024-12-17T00:00:00.000Z",
+      "timeSlot": "09:00",
+      "reason": "Diabetes management consultation",
+      "status": "scheduled",
+      "createdAt": "2025-12-09T19:16:55.912Z",
+      "__v": 0
+    },
+    {
+      "_id": "693875d90b41632c9122e76c",
+      "patientId": "693875d10b41632c9122e769",
+      "doctorName": "Dr. Smith",
+      "department": "General Medicine",
+      "appointmentDate": "2024-12-20T00:00:00.000Z",
+      "timeSlot": "10:00",
+      "reason": "General checkup",
+      "status": "scheduled",
+      "createdAt": "2025-12-09T19:17:45.522Z",
+      "__v": 0
+    }
+  ],
+  "chatInteractions": [
+    {
+      "_id": "693876e12940546357f5bd19",
+      "sessionId": "test_medication",
+      "patientId": "693875d10b41632c9122e769",
+      "userMessage": "I need help with my medication schedule",
+      "botResponse": "I can help you schedule an appointment. Which department would you like to visit?",
+      "intent": "appointment",
+      "confidence": 1,
+      "category": "appointment",
+      "timestamp": "2025-12-09T19:22:09.120Z",
+      "__v": 0
+    },
+    {
+      "_id": "6938771e0a15c4399ed682d7",
+      "sessionId": "test_final_session",
+      "patientId": "693875d10b41632c9122e769",
+      "userMessage": "Hello, I need help with scheduling",
+      "botResponse": "I'm not sure I understand. Could you please rephrase your question? I can help with appointments, medical questions, and symptom checking.",
+      "intent": "unknown",
+      "confidence": 0,
+      "category": "general",
+      "timestamp": "2025-12-09T19:23:10.849Z",
+      "__v": 0
+    }
+  ],
+  "timestamp": "2025-12-09T19:36:13.653Z"
+}

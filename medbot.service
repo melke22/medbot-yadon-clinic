@@ -1,0 +1,15 @@
+[Unit]
+Description=Yadon Clinic MedBot
+After=network.target mongodb.service
+
+[Service]
+Type=simple
+User=medbot
+WorkingDirectory=C:\Users\ELU\Desktop\MedBot
+ExecStart=/usr/bin/node server.js
+Restart=always
+RestartSec=10
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target

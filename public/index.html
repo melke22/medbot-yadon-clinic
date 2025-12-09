@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yadon MedBot - AI Healthcare Assistant | Yadon Clinic, Addis Ababa</title>
+    <meta name="description" content="Yadon Clinic's AI-powered healthcare assistant. Book appointments, get medical information, and access comprehensive healthcare services in Addis Ababa, Ethiopia.">
+    <meta name="keywords" content="Yadon Clinic, Addis Ababa, Ethiopia, healthcare, medical services, AI chatbot, appointments, STI treatment, men's health, maternal care">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-robot"></i>
+                <h1>Yadon MedBot</h1>
+                <span class="clinic-tagline">Your AI Healthcare Assistant</span>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" data-section="chat">Chat</button>
+                <button class="nav-btn" data-section="appointments">Appointments</button>
+                <button class="nav-btn" data-section="profile">Profile</button>
+            </nav>
+        </header>
+
+        <!-- Yadon Clinic Hero Section -->
+        <section class="clinic-hero">
+            <div class="hero-content">
+                <div class="clinic-info">
+                    <div class="clinic-header">
+                        <h2><i class="fas fa-hospital"></i> Welcome to Yadon Clinic</h2>
+                        <p class="clinic-location"><i class="fas fa-map-marker-alt"></i> Addis Ababa, Ethiopia</p>
+                    </div>
+                    <p class="clinic-description">
+                        Premier healthcare destination in the heart of Addis Ababa. As a sister company of Yadon Healthcare PLC, 
+                        we provide comprehensive medical services with personalized care and innovative solutions since 2024.
+                    </p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <i class="fas fa-heartbeat"></i>
+                        <h4>Chronic Illness Care</h4>
+                        <p>Screening & treatment of chronic conditions</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-shield-virus"></i>
+                        <h4>STI Management</h4>
+                        <p>Diagnosis & treatment of sexually transmitted infections</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-user-md"></i>
+                        <h4>Men's Health</h4>
+                        <p>Specialized care for erectile dysfunction & premature ejaculation</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-baby"></i>
+                        <h4>Maternal Care</h4>
+                        <p>ANC follow-up & maternal-child health services</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-procedures"></i>
+                        <h4>Minor Procedures</h4>
+                        <p>Circumcision, lipoma excision & other minor surgeries</p>
+                    </div>
+                    <div class="service-card">
+                        <i class="fas fa-virus"></i>
+                        <h4>Infectious Diseases</h4>
+                        <p>Comprehensive care for communicable diseases</p>
+                    </div>
+                </div>
+                
+                <div class="cta-section">
+                    <button class="cta-button" onclick="navigateToSection('appointments')">
+                        <i class="fas fa-calendar-plus"></i>
+                        Book Your Appointment Today
+                    </button>
+                    <button class="cta-button secondary" onclick="navigateToSection('chat')">
+                        <i class="fas fa-comments"></i>
+                        Chat with Our AI Assistant
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <main class="main" id="main-content"></main>
+            <!-- Chat Section -->
+            <section id="chat" class="section active">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h2><i class="fas fa-comments"></i> Chat with MedBot</h2>
+                        <button class="clear-chat-btn" onclick="clearChat()">
+                            <i class="fas fa-trash"></i> Clear Chat
+                        </button>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                <i class="fas fa-robot"></i>
+                                <div>
+                                    <p>Hello! I'm Yadon MedBot, your AI healthcare assistant for Yadon Clinic.</p>
+                                    <p>I can help you with:</p>
+                                    <ul style="margin: 0.5rem 0; padding-left: 1.5rem;">
+                                        <li>Scheduling appointments</li>
+                                        <li>Information about our medical services</li>
+                                        <li>General health questions</li>
+                                        <li>Clinic location and contact details</li>
+                                    </ul>
+                                    <p>How can I assist you today?</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input-container">
+                        <div class="suggestions" id="suggestions">
+                            <button class="suggestion-btn" onclick="sendSuggestion('Schedule an appointment')">Schedule Appointment</button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Tell me about Yadon Clinic services')">Our Services</button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('I have symptoms to check')">Symptom Checker</button>
+                            <button class="suggestion-btn" onclick="sendSuggestion('Where is Yadon Clinic located?')">Location & Contact</button>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="messageInput" placeholder="Type your message here..." onkeypress="handleKeyPress(event)">
+                            <button onclick="sendMessage()" class="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Appointments Section -->
+            <section id="appointments" class="section">
+                <div class="appointments-container">
+                    <h2><i class="fas fa-calendar-alt"></i> Appointments</h2>
+                    
+                    <div class="appointment-tabs">
+                        <button class="tab-btn active" data-tab="schedule">Schedule New</button>
+                        <button class="tab-btn" data-tab="view">My Appointments</button>
+                    </div>
+
+                    <div id="schedule" class="tab-content active">
+                        <form class="appointment-form" onsubmit="scheduleAppointment(event)">
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                <select id="department" required>
+                                    <option value="">Select Department</option>
+                                    <option value="General Medicine">General Medicine</option>
+                                    <option value="Men's Health">Men's Health (ED, PE Treatment)</option>
+                                    <option value="STI Management">STI Diagnosis & Treatment</option>
+                                    <option value="Chronic Care">Chronic Illness Care</option>
+                                    <option value="Maternal Health">Maternal & Child Health</option>
+                                    <option value="Minor Procedures">Minor Procedures (Circumcision, Lipoma)</option>
+                                    <option value="Infectious Diseases">Communicable Diseases</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="doctor">Doctor</label>
+                                <select id="doctor" required>
+                                    <option value="">Select Doctor</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointmentDate">Date</label>
+                                <input type="date" id="appointmentDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="timeSlot">Time</label>
+                                <select id="timeSlot" required>
+                                    <option value="">Select Time</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="reason">Reason for Visit</label>
+                                <textarea id="reason" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">Schedule Appointment</button>
+                        </form>
+                    </div>
+
+                    <div id="view" class="tab-content">
+                        <div class="appointments-list" id="appointmentsList">
+                            <!-- Appointments will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Section -->
+            <section id="profile" class="section">
+                <div class="profile-container">
+                    <h2><i class="fas fa-user"></i> Patient Profile</h2>
+                    
+                    <form class="profile-form" onsubmit="updateProfile(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dateOfBirth">Date of Birth</label>
+                                <input type="date" id="dateOfBirth" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="allergies">Allergies</label>
+                            <textarea id="allergies" rows="2" placeholder="List any allergies (comma separated)"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyName">Emergency Contact Name</label>
+                            <input type="text" id="emergencyName">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="emergencyPhone">Emergency Contact Phone</label>
+                                <input type="tel" id="emergencyPhone">
+                            </div>
+                            <div class="form-group">
+                                <label for="emergencyRelation">Relationship</label>
+                                <input type="text" id="emergencyRelation">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Update Profile</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-hospital"></i> Yadon Clinic</h4>
+                    <p>Premier healthcare in Addis Ababa, Ethiopia</p>
+                    <p>Sister company of Yadon Healthcare PLC</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-phone"></i> Contact Us</h4>
+                    <p>📍 Addis Ababa, Ethiopia</p>
+                    <p>📞 +251 90 910 2009</p>
+                    <p>✉️ info@yadonclinic.com</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-code"></i> VisionTech</h4>
+                    <p>This AI-powered MedBot was developed by:</p>
+                    <p class="developer-credit">
+                        <strong>Eng. Melkamu Boka</strong><br>
+                        <span>Software Engineer | VT CEO</span>
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Yadon Clinic. All rights reserved. | Powered by VisionTech</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

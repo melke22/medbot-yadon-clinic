@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedBot Admin Dashboard</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+        <header class="admin-header">
+            <div class="admin-logo">
+                <i class="fas fa-shield-alt"></i>
+                <h1>Yadon Clinic Admin</h1>
+            </div>
+            <div class="admin-user">
+                <i class="fas fa-user-shield"></i>
+                <span>Administrator</span>
+            </div>
+        </header>
+
+        <nav class="admin-nav">
+            <button class="nav-item active" data-section="dashboard">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+            </button>
+            <button class="nav-item" data-section="patients">
+                <i class="fas fa-users"></i> Patients
+            </button>
+            <button class="nav-item" data-section="appointments">
+                <i class="fas fa-calendar-alt"></i> Appointments
+            </button>
+            <button class="nav-item" data-section="chats">
+                <i class="fas fa-comments"></i> Chat Logs
+            </button>
+            <button class="nav-item" data-section="analytics">
+                <i class="fas fa-chart-bar"></i> Analytics
+            </button>
+            <button class="nav-item" data-section="database">
+                <i class="fas fa-database"></i> Database
+            </button>
+        </nav>
+
+        <main class="admin-main">
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="admin-section active">
+                <h2><i class="fas fa-tachometer-alt"></i> Dashboard Overview</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon patients">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalPatients">0</h3>
+                            <p>Total Patients</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon appointments">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalAppointments">0</h3>
+                            <p>Total Appointments</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon chats">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalChats">0</h3>
+                            <p>Chat Interactions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon active">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="activeToday">0</h3>
+                            <p>Active Today</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-charts">
+                    <div class="chart-container">
+                        <h3>Appointments by Status</h3>
+                        <canvas id="appointmentChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Chat Interactions by Category</h3>
+                        <canvas id="chatChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="recent-activity">
+                    <h3><i class="fas fa-clock"></i> Recent Activity</h3>
+                    <div id="recentActivity" class="activity-list">
+                        <!-- Recent activity will be loaded here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Patients Section -->
+            <section id="patients" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> Patient Management</h2>
+                    <button class="btn-primary" onclick="showAddPatientModal()">
+                        <i class="fas fa-plus"></i> Add Patient
+                    </button>
+                </div>
+                
+                <div class="search-bar">
+                    <input type="text" id="patientSearch" placeholder="Search patients..." onkeyup="searchPatients()">
+                    <i class="fas fa-search"></i>
+                </div>
+
+                <div class="table-container">
+                    <table id="patientsTable" class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Appointments</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientsTableBody">
+                            <!-- Patients will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Appointments Section -->
+            <section id="appointments" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-calendar-alt"></i> Appointment Management</h2>
+                    <div class="filter-controls">
+                        <select id="statusFilter" onchange="filterAppointments()">
+                            <option value="">All Status</option>
+                            <option value="scheduled">Scheduled</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <input type="date" id="dateFilter" onchange="filterAppointments()">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="appointmentsTable" class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Department</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentsTableBody">
+                            <!-- Appointments will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Chat Logs Section -->
+            <section id="chats" class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> Chat Interaction Logs</h2>
+                    <div class="filter-controls">
+                        <select id="categoryFilter" onchange="filterChats()">
+                            <option value="">All Categories</option>
+                            <option value="appointment">Appointment</option>
+                            <option value="medical_query">Medical Query</option>
+                            <option value="symptom_check">Symptom Check</option>
+                            <option value="medication">Medication</option>
+                            <option value="general">General</option>
+                        </select>
+                        <input type="date" id="chatDateFilter" onchange="filterChats()">
+                    </div>
+                </div>
+
+                <div class="chat-logs" id="chatLogs">
+                    <!-- Chat logs will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="admin-section">
+                <h2><i class="fas fa-chart-bar"></i> Analytics & Reports</h2>
+                
+                <div class="analytics-controls">
+                    <div class="date-range">
+                        <label>From:</label>
+                        <input type="date" id="analyticsStartDate">
+                        <label>To:</label>
+                        <input type="date" id="analyticsEndDate">
+                        <button onclick="loadAnalytics()" class="btn-primary">Generate Report</button>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Patient Demographics</h3>
+                        <canvas id="demographicsChart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Popular Departments</h3>
+                        <canvas id="departmentsChart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Chat Intent Analysis</h3>
+                        <canvas id="intentChart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Monthly Trends</h3>
+                        <canvas id="trendsChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Database Section -->
+            <section id="database" class="admin-section">
+                <h2><i class="fas fa-database"></i> Database Management</h2>
+                
+                <div class="database-actions">
+                    <button onclick="backupDatabase()" class="btn-success">
+                        <i class="fas fa-download"></i> Backup Database
+                    </button>
+                    <button onclick="showImportModal()" class="btn-warning">
+                        <i class="fas fa-upload"></i> Import Data
+                    </button>
+                    <button onclick="clearDatabase()" class="btn-danger">
+                        <i class="fas fa-trash"></i> Clear Database
+                    </button>
+                </div>
+
+                <div class="database-stats">
+                    <h3>Database Statistics</h3>
+                    <div class="db-stats-grid">
+                        <div class="db-stat">
+                            <strong>Patients Collection:</strong>
+                            <span id="patientsCount">0</span> documents
+                        </div>
+                        <div class="db-stat">
+                            <strong>Appointments Collection:</strong>
+                            <span id="appointmentsCount">0</span> documents
+                        </div>
+                        <div class="db-stat">
+                            <strong>Chat Interactions Collection:</strong>
+                            <span id="chatsCount">0</span> documents
+                        </div>
+                    </div>
+                </div>
+
+                <div class="database-tools">
+                    <h3>Database Tools</h3>
+                    <button onclick="initializeSampleData()" class="btn-info">
+                        <i class="fas fa-plus-circle"></i> Initialize Sample Data
+                    </button>
+                    <button onclick="exportData()" class="btn-secondary">
+                        <i class="fas fa-file-export"></i> Export All Data
+                    </button>
+                    <button onclick="optimizeDatabase()" class="btn-primary">
+                        <i class="fas fa-cogs"></i> Optimize Database
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('patientModal')">&times;</span>
+            <h2>Add New Patient</h2>
+            <form id="patientForm" onsubmit="savePatient(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" name="dateOfBirth" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select name="gender" required>
+                        <option value="">Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Allergies (comma separated)</label>
+                    <textarea name="allergies" rows="2"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" onclick="closeModal('patientModal')" class="btn-secondary">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Patient</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>
