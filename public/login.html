@@ -76,11 +76,11 @@
         }
 
         .auth-form {
-            display: none;
+            display: none !important;
         }
 
         .auth-form.active {
-            display: block;
+            display: block !important;
         }
 
         .form-group {
@@ -366,13 +366,32 @@
     <script>
         // Tab switching
         function switchTab(tab) {
+            console.log('🔄 Switching to tab:', tab);
+            
             // Update tab buttons
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
             
-            // Update forms
-            document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
-            document.getElementById(tab + 'Form').classList.add('active');
+            // Find the clicked button and make it active
+            const clickedButton = event ? event.target : document.querySelector(`[onclick*="${tab}"]`);
+            if (clickedButton) {
+                clickedButton.classList.add('active');
+            }
+            
+            // Update forms - hide all first
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+                form.style.display = 'none !important';
+            });
+            
+            // Show target form
+            const targetForm = document.getElementById(tab + 'Form');
+            if (targetForm) {
+                targetForm.classList.add('active');
+                targetForm.style.display = 'block !important';
+                console.log('✅ Switched to', tab, 'form - display:', targetForm.style.display);
+            } else {
+                console.error('❌ Form not found:', tab + 'Form');
+            }
             
             // Clear messages
             hideMessages();
@@ -405,9 +424,9 @@
                 const data = await response.json();
                 
                 if (response.ok) {
-                    showMessage('Login successful! Redirecting...', 'success');
+                    showMessage('Login successful! Redirecting to your profile...', 'success');
                     setTimeout(() => {
-                        window.location.href = '/';
+                        window.location.href = '/?login=success#profile';
                     }, 1000);
                 } else {
                     showMessage(data.message || 'Login failed', 'error');
@@ -452,9 +471,9 @@
                 const data = await response.json();
                 
                 if (response.ok) {
-                    showMessage('Registration successful! Redirecting...', 'success');
+                    showMessage('Registration successful! Redirecting to your profile...', 'success');
                     setTimeout(() => {
-                        window.location.href = '/';
+                        window.location.href = '/?register=success#profile';
                     }, 1000);
                 } else {
                     showMessage(data.message || 'Registration failed', 'error');
@@ -489,16 +508,53 @@
             document.getElementById('successMessage').style.display = 'none';
         }
 
-        // Check if already logged in
+        // Initialize page
         document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const response = await fetch('/api/user-auth/verify');
-                if (response.ok) {
-                    window.location.href = '/';
-                }
-            } catch (error) {
-                // Not logged in, stay on login page
+            console.log('🚀 Login page loaded');
+            
+            // Force show login form by default
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
+            const loginTab = document.querySelector('[onclick*="login"]');
+            const registerTab = document.querySelector('[onclick*="register"]');
+            
+            // Reset all forms first
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.style.display = 'none !important';
+                form.classList.remove('active');
+            });
+            
+            // Reset all tabs
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Show login by default
+            if (loginForm && loginTab) {
+                loginForm.style.display = 'block !important';
+                loginForm.classList.add('active');
+                loginTab.classList.add('active');
+                console.log('✅ Login form set as default');
             }
+            
+            // Check if we should show register tab from URL hash
+            if (window.location.hash === '#register') {
+                console.log('🔗 URL hash detected, switching to register');
+                setTimeout(() => {
+                    if (registerForm && registerTab) {
+                        // Hide login
+                        loginForm.style.display = 'none !important';
+                        loginForm.classList.remove('active');
+                        loginTab.classList.remove('active');
+                        
+                        // Show register
+                        registerForm.style.display = 'block !important';
+                        registerForm.classList.add('active');
+                        registerTab.classList.add('active');
+                        console.log('✅ Switched to register form from URL hash');
+                    }
+                }, 100);
+            }
+            
+            console.log('✅ Login page initialized');
         });
     </script>
 </body>

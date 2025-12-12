@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yadon Clinic - Healthcare in Addis Ababa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo" onclick="window.location.reload()">
+                <img src="assets/images/logo.png" alt="Yadon Clinic Logo" class="logo-image">
+                <div class="logo-text">
+                    <h1>Yadon Clinic</h1>
+                    <span class="clinic-tagline">AI-Powered Healthcare</span>
+                </div>
+            </div>
+            <nav class="nav">
+                <button class="nav-btn active" onclick="showSection('home')">Home</button>
+                <button class="nav-btn" onclick="showSection('about')">About</button>
+                <button class="nav-btn" onclick="showSection('services')">Services</button>
+                <button class="nav-btn" onclick="showSection('chat')">Chat</button>
+            </nav>
+            <div class="header-actions">
+                <a href="/login.html" class="login-link">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </a>
+            </div>
+        </header>
+
+        <!-- Home Section -->
+        <section id="home" class="section home-section" style="display: block;">
+            <div class="hero-banner">
+                <div class="hero-background"></div>
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="hero-logo-container">
+                        <img src="assets/images/logo.png" alt="Yadon Clinic" class="hero-logo">
+                    </div>
+                    <div class="hero-text">
+                        <h1 class="hero-title">Welcome to Yadon Clinic</h1>
+                        <p class="hero-subtitle">Premier Healthcare in Addis Ababa, Ethiopia</p>
+                        <p class="hero-description">
+                            Founded by Dr. Nafyad Getu - Experience world-class medical care with cutting-edge AI technology.
+                        </p>
+                        <div class="hero-buttons">
+                            <button class="hero-btn primary" onclick="showSection('chat')">
+                                <i class="fas fa-comments"></i> Chat with AI Assistant
+                            </button>
+                            <button class="hero-btn secondary" onclick="window.location.href='/login.html'">
+                                <i class="fas fa-calendar-check"></i> Book Appointment
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section" style="display: none;">
+            <div class="section-container">
+                <h2 class="section-title">About Yadon Clinic</h2>
+                <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 2rem auto;">
+                    Founded by Dr. Nafyad Getu, Yadon Clinic is a premier healthcare destination in Addis Ababa, Ethiopia.
+                    We provide comprehensive medical services with personalized care and innovative AI-powered solutions.
+                </p>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section" style="display: none;">
+            <div class="section-container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-heartbeat"></i></div>
+                        <h4>Chronic Illness Care</h4>
+                        <p>Comprehensive screening and treatment</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-user-md"></i></div>
+                        <h4>Men's Health</h4>
+                        <p>Specialized care and treatment</p>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon"><i class="fas fa-baby"></i></div>
+                        <h4>Maternal Care</h4>
+                        <p>ANC follow-up and maternal health</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chat Section -->
+        <section id="chat" class="section" style="display: none;">
+            <div class="section-container">
+                <h2 class="section-title">Chat with Our AI Assistant</h2>
+                <p style="text-align: center;">AI chatbot coming soon...</p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4><i class="fas fa-hospital"></i> Yadon Clinic</h4>
+                    <p>Founded by Dr. Nafyad Getu</p>
+                    <p>Addis Ababa, Ethiopia</p>
+                </div>
+                <div class="footer-section">
+                    <h4><i class="fas fa-phone"></i> Contact</h4>
+                    <p><a href="tel:+251909102009" class="contact-link"><i class="fas fa-phone"></i> +251 90 910 2009</a></p>
+                    <p><a href="mailto:info@yadonclinic.com" class="contact-link"><i class="fas fa-envelope"></i> info@yadonclinic.com</a></p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            // Show target section
+            document.getElementById(sectionId).style.display = 'block';
+            // Update nav buttons
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // Scroll to top
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        console.log('✅ Yadon Clinic website loaded');
+    </script>
+</body>
+</html>

@@ -6,7 +6,13 @@ let sessionId = generateSessionId();
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Script.js loaded - initializing application...');
+    
+    // Check authentication first
     checkUserAuthentication();
+    
+    // Initialize simple navigation
+    setupSimpleNavigation();
 });
 
 // Check if user is authenticated
@@ -39,42 +45,79 @@ async function checkUserAuthentication() {
 
 // Initialize app after authentication
 function initializeApp() {
-    initializeNavigation();
     initializeTabs();
     setMinDate();
     setupLogout();
+    
+    // Handle URL hash for direct navigation (e.g., /#profile)
+    handleUrlHash();
 }
 
 // Update UI for authenticated user
 function updateUserInterface() {
-    // Add logout button to header
-    const header = document.querySelector('.header');
-    if (header && currentUser) {
-        const userInfo = document.createElement('div');
-        userInfo.className = 'user-info';
-        userInfo.innerHTML = `
-            <span class="user-welcome">Welcome, ${currentUser.email}</span>
-            <button onclick="logout()" class="logout-btn" title="Logout">
-                <i class="fas fa-sign-out-alt"></i>
-            </button>
-        `;
-        header.appendChild(userInfo);
+    console.log('Updating UI for authenticated user:', currentUser);
+    
+    // Hide guest info and show user info
+    const guestInfo = document.getElementById('guestInfo');
+    const userInfo = document.getElementById('userInfo');
+    
+    if (guestInfo) {
+        guestInfo.style.display = 'none';
+        console.log('Guest info hidden');
+    }
+    
+    if (userInfo && currentUser) {
+        userInfo.style.display = 'flex';
+        const welcomeSpan = userInfo.querySelector('.user-welcome');
+        if (welcomeSpan) {
+            welcomeSpan.textContent = `Welcome, ${currentUser.name || currentUser.email}!`;
+            console.log('User welcome updated:', currentUser.name || currentUser.email);
+        }
+        console.log('User info shown');
+    }
+    
+    // Show success notification
+    showNotification(`Welcome back, ${currentUser.name || currentUser.email}!`, 'success');
+    
+    // If URL hash is profile, scroll to profile
+    if (window.location.hash === '#profile') {
+        setTimeout(() => {
+            const profileElement = document.getElementById('profile');
+            if (profileElement) {
+                window.scrollTo({
+                    top: profileElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Update active button
+                const navButtons = document.querySelectorAll('.nav-btn');
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                const profileButton = document.querySelector('[data-section="profile"]');
+                if (profileButton) {
+                    profileButton.classList.add('active');
+                }
+                
+                console.log('Scrolled to profile after login');
+            }
+        }, 500);
     }
 }
 
 // Update UI for guest users
 function updateGuestInterface() {
-    // Add login/register buttons to header
-    const header = document.querySelector('.header');
-    if (header) {
-        const guestInfo = document.createElement('div');
-        guestInfo.className = 'guest-info';
-        guestInfo.innerHTML = `
-            <a href="/login.html" class="login-link">
-                <i class="fas fa-sign-in-alt"></i> Login / Register
-            </a>
-        `;
-        header.appendChild(guestInfo);
+    console.log('Updating UI for guest user');
+    
+    // Show guest info and hide user info
+    const guestInfo = document.getElementById('guestInfo');
+    const userInfo = document.getElementById('userInfo');
+    
+    if (guestInfo) {
+        guestInfo.style.display = 'flex';
+        console.log('Guest info shown');
+    }
+    if (userInfo) {
+        userInfo.style.display = 'none';
+        console.log('User info hidden');
     }
     
     // Disable features that require authentication
@@ -130,39 +173,57 @@ async function logout() {
 
 // Navigation functionality
 function initializeNavigation() {
+    console.log('Initializing navigation...');
     const navButtons = document.querySelectorAll('.nav-btn');
-    const sections = document.querySelectorAll('.section');
+    
+    console.log('Found nav buttons:', navButtons.length);
 
     navButtons.forEach(button => {
-        button.addEventListener('click', (e) => {
-            // Don't prevent default if it's a link
-            if (button.tagName === 'A') {
-                return;
-            }
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
             
-            const targetSection = button.getAttribute('data-section');
+            const targetSection = this.getAttribute('data-section');
+            console.log('Clicked:', targetSection);
             
             if (targetSection) {
                 // Update active nav button
                 navButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+                this.classList.add('active');
                 
-                // Update active section
-                sections.forEach(section => section.classList.remove('active'));
+                // Handle home section - scroll to top
+                if (targetSection === 'home') {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                    console.log('Scrolled to top for home');
+                    return;
+                }
+                
+                // For other sections, scroll to the specific section
                 const targetElement = document.getElementById(targetSection);
                 if (targetElement) {
-                    targetElement.classList.add('active');
+                    console.log('Found target element:', targetElement);
+                    console.log('Element position:', targetElement.offsetTop);
                     
-                    // Scroll to the main content area smoothly
-                    const mainElement = document.getElementById('main-content');
-                    if (mainElement) {
-                        setTimeout(() => {
-                            mainElement.scrollIntoView({ 
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }, 100);
+                    // Try scrollIntoView first
+                    try {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start',
+                            inline: 'nearest'
+                        });
+                        console.log('Scrolled to section using scrollIntoView:', targetSection);
+                    } catch (error) {
+                        // Fallback to manual scroll
+                        console.log('scrollIntoView failed, using manual scroll');
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80, // Account for header height
+                            behavior: 'smooth'
+                        });
                     }
+                } else {
+                    console.error('Section not found:', targetSection);
                 }
                 
                 // Load section-specific data
@@ -172,6 +233,8 @@ function initializeNavigation() {
             }
         });
     });
+    
+    console.log('Navigation initialized successfully');
 }
 
 // Tab functionality for appointments
@@ -593,6 +656,8 @@ async function updateProfile(event) {
 
 // Navigate to section function
 function navigateToSection(sectionName) {
+    console.log('Navigating to:', sectionName);
+    
     // Check if authentication is required for this section
     if ((sectionName === 'appointments' || sectionName === 'profile') && !currentUser) {
         showNotification(`Please login to access ${sectionName}`, 'warning');
@@ -602,31 +667,55 @@ function navigateToSection(sectionName) {
         return;
     }
     
-    // Update navigation
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const sections = document.querySelectorAll('.section');
-    
     // Update active nav button
+    const navButtons = document.querySelectorAll('.nav-btn');
     navButtons.forEach(btn => btn.classList.remove('active'));
     const targetNavButton = document.querySelector(`[data-section="${sectionName}"]`);
     if (targetNavButton) {
         targetNavButton.classList.add('active');
     }
     
-    // Update active section
-    sections.forEach(section => section.classList.remove('active'));
-    const targetSection = document.getElementById(sectionName);
-    if (targetSection) {
-        targetSection.classList.add('active');
+    // Handle home section - scroll to top
+    if (sectionName === 'home') {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        console.log('Scrolled to top for home');
+        return;
     }
     
-    // Scroll to main content
-    const mainElement = document.getElementById('main-content');
-    if (mainElement) {
-        setTimeout(() => {
-            mainElement.scrollIntoView({ 
+    // For other sections, scroll to the specific section
+    const targetSection = document.getElementById(sectionName);
+    if (targetSection) {
+        console.log('Found target element:', targetSection);
+        console.log('Element position:', targetSection.offsetTop);
+        
+        // Try scrollIntoView first
+        try {
+            targetSection.scrollIntoView({
                 behavior: 'smooth',
-                block: 'start'
+                block: 'start',
+                inline: 'nearest'
+            });
+            console.log('Scrolled to section using scrollIntoView:', sectionName);
+        } catch (error) {
+            // Fallback to manual scroll
+            console.log('scrollIntoView failed, using manual scroll');
+            window.scrollTo({
+                top: targetSection.offsetTop - 80, // Account for header height
+                behavior: 'smooth'
+            });
+        }
+    } else {
+        console.error('Section not found:', sectionName);
+    }
+    
+    // Load section-specific data
+    if (sectionName === 'appointments' && currentUser) {
+        loadAppointments();
+    }
+}
             });
         }, 100);
     }
@@ -634,6 +723,82 @@ function navigateToSection(sectionName) {
     // Load section-specific data
     if (sectionName === 'appointments' && currentUser) {
         loadAppointments();
+    }
+}
+
+// Simple navigation setup that works immediately
+function setupSimpleNavigation() {
+    console.log('Setting up simple navigation...');
+    
+    const navButtons = document.querySelectorAll('.nav-btn');
+    console.log('Found navigation buttons:', navButtons.length);
+    
+    navButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetSection = this.getAttribute('data-section');
+            console.log('Clicked navigation:', targetSection);
+            
+            // Update active button
+            navButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Scroll to section
+            if (targetSection === 'home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                console.log('Scrolled to home');
+            } else {
+                const element = document.getElementById(targetSection);
+                if (element) {
+                    console.log('Found element:', element);
+                    console.log('Element position:', element.offsetTop);
+                    
+                    // Use manual scroll for better control
+                    window.scrollTo({
+                        top: element.offsetTop - 80, // Account for header
+                        behavior: 'smooth'
+                    });
+                    console.log('Scrolled to:', targetSection);
+                } else {
+                    console.error('Section not found:', targetSection);
+                }
+            }
+        });
+    });
+    
+    // Handle URL hash
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+        console.log('URL hash detected:', hash);
+        setTimeout(() => {
+            const element = document.getElementById(hash);
+            if (element) {
+                window.scrollTo({
+                    top: element.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Update active button
+                const targetButton = document.querySelector(`[data-section="${hash}"]`);
+                if (targetButton) {
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    targetButton.classList.add('active');
+                }
+            }
+        }, 1000);
+    }
+    
+    console.log('Simple navigation setup complete');
+}
+
+// Handle URL hash for direct navigation
+function handleUrlHash() {
+    const hash = window.location.hash.substring(1); // Remove the # symbol
+    if (hash) {
+        console.log('URL hash detected:', hash);
+        setTimeout(() => {
+            navigateToSection(hash);
+        }, 500); // Small delay to ensure page is fully loaded
     }
 }
 

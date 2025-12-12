@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigation Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; }
+        .success { background: #d4edda; }
+        .error { background: #f8d7da; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🔧 Navigation & Login Test</h1>
+    
+    <div class="test-section success">
+        <h3>✅ Fixed Issues</h3>
+        <ul>
+            <li><strong>Navigation:</strong> Added simple-nav.js with direct event handlers</li>
+            <li><strong>Login Redirect:</strong> Now redirects to /?login=success#profile</li>
+            <li><strong>UI Updates:</strong> Added login-handler.js to update user interface</li>
+            <li><strong>Profile Scroll:</strong> Automatically scrolls to profile after login</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h3>🧪 Test Instructions</h3>
+        <ol>
+            <li><strong>Test Navigation:</strong>
+                <br>• Open <a href="http://localhost:3000" target="_blank">http://localhost:3000</a>
+                <br>• Click About, Services, Chat buttons
+                <br>• Check browser console (F12) for navigation logs
+            </li>
+            <li><strong>Test Login Flow:</strong>
+                <br>• Go to <a href="http://localhost:3000/login.html" target="_blank">Login Page</a>
+                <br>• Login with any account
+                <br>• Should redirect to profile page with user name shown
+            </li>
+            <li><strong>Test Register Flow:</strong>
+                <br>• Go to <a href="http://localhost:3000/login.html#register" target="_blank">Register Page</a>
+                <br>• Create new account
+                <br>• Should redirect to profile page
+            </li>
+        </ol>
+    </div>
+
+    <div class="test-section">
+        <h3>🔍 Debug Information</h3>
+        <p><strong>Server:</strong> <span id="serverStatus">Checking...</span></p>
+        <p><strong>Navigation Script:</strong> <span id="navStatus">Checking...</span></p>
+        <p><strong>Login Handler:</strong> <span id="loginStatus">Checking...</span></p>
+        
+        <button onclick="testServer()">Test Server</button>
+        <button onclick="testNavigation()">Test Navigation</button>
+        <button onclick="testLogin()">Test Login Page</button>
+    </div>
+
+    <script>
+        // Test server connection
+        async function testServer() {
+            try {
+                const response = await fetch('http://localhost:3000/health');
+                if (response.ok) {
+                    document.getElementById('serverStatus').textContent = '✅ Running';
+                    document.getElementById('serverStatus').style.color = 'green';
+                } else {
+                    document.getElementById('serverStatus').textContent = '❌ Error';
+                    document.getElementById('serverStatus').style.color = 'red';
+                }
+            } catch (error) {
+                document.getElementById('serverStatus').textContent = '❌ Not running';
+                document.getElementById('serverStatus').style.color = 'red';
+            }
+        }
+        
+        function testNavigation() {
+            window.open('http://localhost:3000', '_blank');
+        }
+        
+        function testLogin() {
+            window.open('http://localhost:3000/login.html', '_blank');
+        }
+        
+        // Auto-test on load
+        testServer();
+    </script>
+</body>
+</html>

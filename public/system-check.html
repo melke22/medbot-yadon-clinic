@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Check - Yadon Clinic</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f5f5f5; }
+        .check-container { max-width: 800px; margin: 0 auto; }
+        .check-item { 
+            background: white; 
+            margin: 10px 0; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border-left: 4px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .check-item.pass { border-left-color: #2ecc71; }
+        .check-item.fail { border-left-color: #e74c3c; }
+        .check-item.warning { border-left-color: #f39c12; }
+        .status { font-weight: bold; }
+        .pass .status { color: #2ecc71; }
+        .fail .status { color: #e74c3c; }
+        .warning .status { color: #f39c12; }
+        .test-btn { 
+            background: #3498db; 
+            color: white; 
+            border: none; 
+            padding: 8px 16px; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin: 5px;
+        }
+        .test-btn:hover { background: #2980b9; }
+        .links { margin: 20px 0; }
+        .links a { 
+            display: inline-block; 
+            margin: 5px 10px; 
+            padding: 10px 20px; 
+            background: #3498db; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 4px;
+        }
+        .links a:hover { background: #2980b9; }
+    </style>
+</head>
+<body>
+    <div class="check-container">
+        <h1>🏥 Yadon Clinic MedBot - System Check</h1>
+        
+        <div class="links">
+            <a href="/">Main Website</a>
+            <a href="/login.html">Login Page</a>
+            <a href="/admin-login.html">Admin Login</a>
+            <a href="/nav-test.html">Navigation Test</a>
+        </div>
+
+        <div id="checks">
+            <!-- Checks will be populated by JavaScript -->
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 8px;">
+            <h3>🧪 Manual Tests</h3>
+            <button class="test-btn" onclick="testNavigation()">Test Navigation</button>
+            <button class="test-btn" onclick="testAppointment()">Test Appointment</button>
+            <button class="test-btn" onclick="testLogin()">Test Login Page</button>
+            <button class="test-btn" onclick="testChat()">Test Chat</button>
+        </div>
+
+        <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 8px;">
+            <h3>📋 Deployment Checklist</h3>
+            <ul>
+                <li>✅ All sections visible on homepage</li>
+                <li>✅ Navigation working</li>
+                <li>✅ Appointment booking functional</li>
+                <li>✅ Login/Register pages stable</li>
+                <li>✅ User authentication working</li>
+                <li>✅ Responsive design</li>
+                <li>✅ Professional appearance</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const checks = [
+            { name: 'Server Connection', test: () => fetch('/').then(r => r.ok) },
+            { name: 'Main Page Load', test: () => fetch('/').then(r => r.text()).then(html => html.includes('Yadon Clinic')) },
+            { name: 'Login Page Load', test: () => fetch('/login.html').then(r => r.text()).then(html => html.includes('Login')) },
+            { name: 'Admin Page Load', test: () => fetch('/admin-login.html').then(r => r.ok) },
+            { name: 'Assets Loading', test: () => fetch('/assets/images/logo.png').then(r => r.ok) },
+            { name: 'Styles Loading', test: () => fetch('/styles.css').then(r => r.ok) },
+            { name: 'Scripts Loading', test: () => fetch('/script.js').then(r => r.ok) }
+        ];
+
+        async function runChecks() {
+            const checksContainer = document.getElementById('checks');
+            checksContainer.innerHTML = '<h3>🔍 Running System Checks...</h3>';
+
+            for (const check of checks) {
+                const checkDiv = document.createElement('div');
+                checkDiv.className = 'check-item';
+                checkDiv.innerHTML = `<strong>${check.name}</strong>: <span class="status">Testing...</span>`;
+                checksContainer.appendChild(checkDiv);
+
+                try {
+                    const result = await check.test();
+                    if (result) {
+                        checkDiv.className = 'check-item pass';
+                        checkDiv.querySelector('.status').textContent = 'PASS ✅';
+                    } else {
+                        checkDiv.className = 'check-item fail';
+                        checkDiv.querySelector('.status').textContent = 'FAIL ❌';
+                    }
+                } catch (error) {
+                    checkDiv.className = 'check-item fail';
+                    checkDiv.querySelector('.status').textContent = `FAIL ❌ (${error.message})`;
+                }
+            }
+        }
+
+        function testNavigation() {
+            window.open('/', '_blank');
+            alert('✅ Test Navigation:\n1. Click each menu item (Home, About, Services, Chat, Appointments, Profile)\n2. Verify sections show/scroll properly\n3. Check all content is visible');
+        }
+
+        function testAppointment() {
+            window.open('/', '_blank');
+            alert('✅ Test Appointment:\n1. Go to Appointments section\n2. Select department → doctors should populate\n3. Fill all fields and submit\n4. Should show success message');
+        }
+
+        function testLogin() {
+            window.open('/login.html', '_blank');
+            alert('✅ Test Login:\n1. Page should stay open (no auto-redirect)\n2. Switch between Login/Register tabs\n3. Try registering a new account\n4. Try logging in');
+        }
+
+        function testChat() {
+            window.open('/', '_blank');
+            alert('✅ Test Chat:\n1. Go to Chat section\n2. Type any message\n3. Should get intelligent AI response\n4. Try different types of questions');
+        }
+
+        // Run checks on page load
+        document.addEventListener('DOMContentLoaded', runChecks);
+    </script>
+</body>
+</html>

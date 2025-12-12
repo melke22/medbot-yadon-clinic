@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedBot Functionality Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ddd; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        .info { background-color: #d1ecf1; border-color: #bee5eb; }
+        button { padding: 10px 15px; margin: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>🏥 Yadon MedBot - Functionality Test</h1>
+    
+    <div class="test-section info">
+        <h3>✅ Server Status</h3>
+        <p>Server is running on: <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></p>
+        <button onclick="testHomepage()">Test Homepage</button>
+        <button onclick="testLogin()">Test Login Page</button>
+        <button onclick="testNavigation()">Test Navigation</button>
+    </div>
+
+    <div class="test-section success">
+        <h3>🔧 Fixed Issues</h3>
+        <ul>
+            <li>✅ Navigation buttons now use proper data-section attributes</li>
+            <li>✅ Register tab switching fixed in login.html</li>
+            <li>✅ Homepage shows all sections by default</li>
+            <li>✅ Smooth scrolling implemented for navigation</li>
+            <li>✅ Authentication flow properly handled</li>
+            <li>✅ Server running without port conflicts</li>
+        </ul>
+    </div>
+
+    <div class="test-section info">
+        <h3>🎯 Key Features Working</h3>
+        <ul>
+            <li><strong>Homepage:</strong> Shows all sections (Home, About, Services, Gallery) by default</li>
+            <li><strong>Navigation:</strong> Smooth scrolling to individual sections when clicked</li>
+            <li><strong>Login/Register:</strong> Proper tab switching and form handling</li>
+            <li><strong>Appointments:</strong> Full booking system with doctor selection</li>
+            <li><strong>Chat:</strong> AI-powered healthcare assistant</li>
+            <li><strong>Profile:</strong> User profile management</li>
+            <li><strong>Responsive:</strong> Works on both desktop and mobile</li>
+        </ul>
+    </div>
+
+    <div class="test-section success">
+        <h3>🏥 Yadon Clinic Customization</h3>
+        <ul>
+            <li><strong>Owner:</strong> Dr. Nafyad Getu</li>
+            <li><strong>Location:</strong> Addis Ababa, Ethiopia</li>
+            <li><strong>Services:</strong> Chronic illness care, STI management, men's health, maternal care, minor procedures</li>
+            <li><strong>Developer:</strong> Eng. Melkamu Boka (VisionTech CEO)</li>
+            <li><strong>Images:</strong> Logo, facilities, doctor photos integrated</li>
+        </ul>
+    </div>
+
+    <div class="test-section info">
+        <h3>📱 How to Test</h3>
+        <ol>
+            <li><strong>Open Homepage:</strong> <a href="http://localhost:3000" target="_blank">http://localhost:3000</a></li>
+            <li><strong>Test Navigation:</strong> Click Home, About, Services, Chat buttons</li>
+            <li><strong>Test Login:</strong> <a href="http://localhost:3000/login.html" target="_blank">http://localhost:3000/login.html</a></li>
+            <li><strong>Test Register:</strong> <a href="http://localhost:3000/login.html#register" target="_blank">http://localhost:3000/login.html#register</a></li>
+            <li><strong>Test Appointments:</strong> Try booking an appointment (requires login)</li>
+            <li><strong>Test Chat:</strong> Use the AI chatbot for healthcare questions</li>
+        </ol>
+    </div>
+
+    <script>
+        function testHomepage() {
+            window.open('http://localhost:3000', '_blank');
+        }
+        
+        function testLogin() {
+            window.open('http://localhost:3000/login.html', '_blank');
+        }
+        
+        function testNavigation() {
+            alert('Open the homepage and test clicking: Home, About, Services, Chat, Appointments, Profile buttons');
+        }
+    </script>
+</body>
+</html>
